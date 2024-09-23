@@ -4,7 +4,7 @@ const session = require('express-session');
 let books = require("./booksdb.js");
 const customerRouter = express.Router();
 
-let users = [];
+let customers = [];
 
 const isValid = (username)=>{ //returns boolean
 //write code to check is the username is valid
@@ -30,25 +30,25 @@ const authorizationMiddleWare = (req,res,next) => {
                     }
                 });
             } else {
-                return res.status(403).json({ message: "User not authenticated! (logged in)" });
+                return res.status(403).json({ message: "User not authenticated! (user not logged in)" });
             }
         
 }
 
 
-//only registered users can login
+//only registered customers can login
 customerRouter.post("/login", (req,res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(300).json({message: "/login endpoint is yet to be implemented"});
 });
 
 // Add a book review
 customerRouter.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(300).json({message: "/auth/review/:isbn: Yet to be implemented"});
 });
 
 module.exports.customerRouter = customerRouter;
 module.exports.isValid = isValid;
-module.exports.users = users;
+module.exports.customers = customers;
 module.exports.authorizationMiddleWare = authorizationMiddleWare;

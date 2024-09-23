@@ -1,7 +1,10 @@
+// Define/include/import all required modules/libraries/jsfiles, middlewares, and route handlers (routers)
 const express = require('express');
 let books = require("./booksdb.js");
 let isValid = require("./customer-router.js").isValid;
-let users = require("./customer-router.js").users;
+let customers = require("./customer-router.js").customers;
+
+
 const publicRouter = express.Router();
 
 
@@ -13,7 +16,7 @@ publicRouter.post("/register", (req,res) => {
 // Get the book list available in the shop
 publicRouter.get('/',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Get the book list available in the shop: Yet to be implemented"});
+  return res.status(200).json({message: "Get the book list available in the shop: Yet to be implemented"});
 });
 
 // Get book details based on ISBN
