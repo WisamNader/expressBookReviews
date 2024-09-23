@@ -16,7 +16,8 @@ publicRouter.post("/register", (req,res) => {
 // Get the book list available in the shop
 publicRouter.get('/',function (req, res) {
   //Write your code here
-  return res.status(200).json({message: "Get the book list available in the shop: Yet to be implemented"});
+  // return res.status(300).json({message: "Get the book list available in the shop: Yet to be implemented"});
+  return res.status(200).send(JSON.stringify(books));
 });
 
 // Get book details based on ISBN
