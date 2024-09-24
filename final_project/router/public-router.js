@@ -13,17 +13,22 @@ publicRouter.post("/register", (req,res) => {
   return res.status(300).json({message: "POST Method to register user End Point API: Yet to be implemented"});
 });
 
-// Get the book list available in the shop
+// TASK#1: Get the book list available in the shop
 publicRouter.get('/',function (req, res) {
   //Write your code here
   // return res.status(300).json({message: "Get the book list available in the shop: Yet to be implemented"});
   return res.status(200).send(JSON.stringify(books));
 });
 
-// Get book details based on ISBN
+// TASK#2: Get book details based on ISBN
 publicRouter.get('/isbn/:isbn',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: " Get book details based on ISBN: Yet to be implemented"});
+  let isbn = req.params.isbn;
+  if(books[isbn]){
+    return res.status(200).json(books[isbn]);
+  }
+  return res.status(404).json({message:"book isbn does not exist"});
+  //return res.status(300).json({message: " Get book details based on ISBN: Yet to be implemented"});
  }); 
   
 // Get book details based on author

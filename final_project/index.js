@@ -5,6 +5,8 @@ const session = require('express-session');
 const customerRouter = require('./router/customer-router.js').customerRouter; //router for registerd customers only
 const publicRouter = require('./router/public-router.js').publicRouter; //router for any customer
 const authorizationMiddleWare = require('./router/customer-router.js').authorizationMiddleWare;
+const boooks = require('./router/booksdb.js');
+
 
 // Create an Express app instance/object
 const app = express();
@@ -44,4 +46,8 @@ app.use("/", publicRouter);             //use this router for any customer
 
 // Start/run the server
 const PORT =5000;
-app.listen(PORT,()=>console.log("Server is running"));
+app.listen(PORT,()=>{
+    console.log("Server is running");
+    console.log(JSON.stringify(boooks[1]));
+
+});
