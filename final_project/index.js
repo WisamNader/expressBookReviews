@@ -67,9 +67,11 @@ app.listen(PORT,()=>{
     //console.log(obj2.name);  // Output: Wisam
     //console.log(obj3.age);  // Output: Wisam
     //console.log(obj3['date of birth']);
+    /*
     for (let key in obj3){
         console.log(key + " : " + obj3[key]);
     }
+    */
 
 });
 
