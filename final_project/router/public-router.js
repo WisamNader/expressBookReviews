@@ -97,10 +97,24 @@ publicRouter.get('/title/:title',function (req, res) {
   //return res.status(300).json({message: "Get all books based on title: Yet to be implemented"});
 });
 
+
+//TASK#5: 
 //  Get book review
 publicRouter.get('/review/:isbn',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Get book review: Yet to be implemented"});
+  //return res.status(300).json({message: "Get book review by isbn: Yet to be implemented"});
+
+  const isbn = req.params.isbn;
+  if(books[isbn]){
+    let bookReviews = {"isbn":isbn, "reviews":books[isbn].reviews};
+    console.log(`book with isbn: ${isbn} was found!`);
+    console.log({"reviews": books[isbn].reviews});
+    res.status(200).json(bookReviews);
+  }
+  else{
+    res.status(404).send(`no book was found for isbn: ${isbn}`);
+  }
+
 });
 
 module.exports.publicRouter = publicRouter;
