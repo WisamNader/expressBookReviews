@@ -60,6 +60,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
 
 // Start/run the server
 const PORT =5000;
+console.log('=> will start the server now')
 app.listen(PORT,()=>{
     console.log("Server is running");
 
@@ -77,5 +78,7 @@ app.listen(PORT,()=>{
     */
 
 });
+
+console.log("this command is just after starting the server in the index.js file");
 
 //module.exports.registeredUsers = registeredUsers;
