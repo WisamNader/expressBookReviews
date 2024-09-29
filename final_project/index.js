@@ -1,15 +1,14 @@
 // Define/include/import all required modules/libraries/jsfiles, middlewares, and route handlers (routers)
+    console.log("now running index.js file");
     const express = require('express');
     const jwt = require('jsonwebtoken');
     const session = require('express-session');
+    const axios = require("axios");
     const customerRouter = require('./router/customer-router.js').customerRouter; //router for registerd customers only
     const publicRouter = require('./router/public-router.js').publicRouter; //router for any customer
     const authorizationMiddleWare = require('./router/customer-router.js').authorizationMiddleWare;
     const boooks = require('./router/booksdb.js');
 
-
-// Create a DB for registered users
-    const registeredUsers = [];
 
 // Create an Express app instance/object
     const app = express();
@@ -63,6 +62,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
 const PORT =5000;
 app.listen(PORT,()=>{
     console.log("Server is running");
+
     //console.log(JSON.stringify(boooks[1]));
     //console.log(jsonString);
     //console.log(obj);
@@ -78,4 +78,4 @@ app.listen(PORT,()=>{
 
 });
 
-module.exports.registeredUsers = registeredUsers;
+//module.exports.registeredUsers = registeredUsers;

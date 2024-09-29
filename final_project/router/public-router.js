@@ -1,9 +1,11 @@
 // Define/include/import all required modules/libraries/jsfiles, middlewares, and route handlers (routers)
+console.log("now running the public-router file");
 const express = require('express');
+const axios = require('axios');
 let books = require("./booksdb.js");
 //let registeredUsers = require("../index.js").registeredUsers;
 let isValid = require("./customer-router.js").isValid;
-let customers = require("./customer-router.js").customers;
+//let customers = require("./customer-router.js").customers;
 
 const publicRouter = express.Router();
 
@@ -49,6 +51,17 @@ publicRouter.get('/',function (req, res) {
   // return res.status(300).json({message: "Get the book list available in the shop: Yet to be implemented"});
   return res.status(200).send(JSON.stringify(books));
 });
+
+// TASK#10
+console.log("Now requesting a list of all available books using axios:\n please wait ...");
+axios.get('http://localhost:5000/')
+.then(responseData =>{
+    console.log("just received a response!\n Response data is:\n", responseData.data, " ======= End of Response Data\n");
+})
+.catch(errorMessage =>{
+    console.error(errorMessage, error);
+});
+
 
 // TASK#2
 // Get book details based on ISBN

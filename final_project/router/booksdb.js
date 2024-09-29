@@ -1,3 +1,4 @@
+console.log("now running the booksdb.js file");
 let books = {
       1: {"author": "Chinua Achebe","title": "Things Fall Apart", "reviews": {"user1":"5-star book"} },
       2: {"author": "Hans Christian Andersen","title": "Fairy tales", "reviews": {"user3":"not great", "user4":"just OK book"} },
