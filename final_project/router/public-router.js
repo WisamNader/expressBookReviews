@@ -44,7 +44,7 @@ publicRouter.post("/register", (req,res) => {
 
 });
 
-// TASK#1
+// TASK#1 ===========================
 // Get the book list available in the shop
 publicRouter.get('/',function (req, res) {
   //Write your code here
@@ -52,19 +52,19 @@ publicRouter.get('/',function (req, res) {
   return res.status(200).send(JSON.stringify(books));
 });
 
-// TASK#10
+// TASK#10 ==========================
 console.log("Now requesting a list of all available books using axios:\n please wait ...");
 axios.get('http://localhost:5000/')
-.then(responseData =>{
-    console.log("just received a response!\n Response data is:\n", responseData.data, " ======= End of Response Data\n");
-})
-.catch(errorMessage =>{
-    console.error(errorMessage, error);
-});
+  .then(responseData =>{
+      console.log("Here is the full book list:\n", responseData.data, " === End of the full book list/data === \n");
+  })
+  .catch(errorMessage =>{
+      console.error(errorMessage, error);
+  });
+  
 
-
-// TASK#2
-// Get book details based on ISBN
+// TASK#2 ===========================
+// Endpoint Get Request Handler: Get book details based on ISBN
 publicRouter.get('/isbn/:isbn',function (req, res) {
   //Write your code here
   let isbn = req.params.isbn;
@@ -74,8 +74,20 @@ publicRouter.get('/isbn/:isbn',function (req, res) {
   return res.status(404).json({message:"book isbn does not exist"});
   //return res.status(300).json({message: " Get book details based on ISBN: Yet to be implemented"});
  }); 
-  
-// TASK#3
+
+// TASK#11 ============================
+// Get/request book details based on ISBN using axios
+const isbn = 10;
+console.log(`now requesting book details by isbn: ${isbn} \n`);
+axios.get(`http://localhost:5000/isbn/${isbn}`)
+ .then(response => {
+    console.log(`just received a response regarding the book of isbn: ${isbn} \n`, response.data);
+  })
+ .catch(error => {
+    console.error('Failed to get a response. Error message:', error.message, '(',  error.response.data.message, ').');
+  });
+ 
+// TASK#3 =============================
 // Get book details based on author
 publicRouter.get('/author/:author',function (req, res) {
   //Write your code here
