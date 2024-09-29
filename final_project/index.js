@@ -8,6 +8,9 @@
     const boooks = require('./router/booksdb.js');
 
 
+// Create a DB for registered users
+    const registeredUsers = [];
+
 // Create an Express app instance/object
     const app = express();
 
@@ -75,3 +78,4 @@ app.listen(PORT,()=>{
 
 });
 
+module.exports.registeredUsers = registeredUsers;

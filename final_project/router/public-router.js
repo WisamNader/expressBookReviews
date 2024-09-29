@@ -1,16 +1,45 @@
 // Define/include/import all required modules/libraries/jsfiles, middlewares, and route handlers (routers)
 const express = require('express');
 let books = require("./booksdb.js");
+//let registeredUsers = require("../index.js").registeredUsers;
 let isValid = require("./customer-router.js").isValid;
 let customers = require("./customer-router.js").customers;
 
-
 const publicRouter = express.Router();
 
+//TASK#6: 
+// Create a DB for registered users
+const registeredUsers = {};
+const registeredCustomers = [];
 
+// "/register" End Point API
 publicRouter.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "POST Method to register user End Point API: Yet to be implemented"});
+  const {username, password} = req.body;
+
+  if ([undefined, null, ""].includes(username) ){
+    return res.status(400).send(`missing username`);
+  }
+
+  if ([undefined, null, ""].includes(password) ){
+    return res.status(400).send(`missing password`);
+  }
+
+  if (registeredUsers[username]){
+    if(registeredCustomers.find(user => user.username === username))
+        console.log(`username: ${username} already exists`);
+
+    return res.status(409).send(`409 Error Code (Conflict); resource (i.e. username: ${username}) already exists`);
+  }
+  else{
+    console.log(`Yeah new user (${username}) just registered!!`)
+    registeredUsers[username] = password;
+    registeredCustomers.push({"username": username, "password": password});
+    console.log("registeredUsers are:\n", registeredUsers);
+    console.log("registeredCustomers are:\n", registeredCustomers);
+    //return res.status(200).send(registeredUsers);
+    return res.status(200).send(registeredCustomers);
+  }
+
 });
 
 // TASK#1
@@ -118,3 +147,4 @@ publicRouter.get('/review/:isbn',function (req, res) {
 });
 
 module.exports.publicRouter = publicRouter;
+module.exports.registeredUsers = registeredUsers;
