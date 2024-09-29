@@ -7,6 +7,8 @@ let books = require("./booksdb.js");
 let isValid = require("./customer-router.js").isValid;
 //let customers = require("./customer-router.js").customers;
 
+const host = "http://localhost:5000";
+
 const publicRouter = express.Router();
 
 //TASK#6: 
@@ -77,18 +79,18 @@ publicRouter.get('/isbn/:isbn',function (req, res) {
 
 // TASK#11 ============================
 // Get/request book details based on ISBN using axios
-const isbn = 10;
+const isbn = 11;
 console.log(`now requesting book details by isbn: ${isbn} \n`);
 axios.get(`http://localhost:5000/isbn/${isbn}`)
  .then(response => {
     console.log(`just received a response regarding the book of isbn: ${isbn} \n`, response.data);
   })
  .catch(error => {
-    console.error('Failed to get a response. Error message:', error.message, '(',  error.response.data.message, ').');
+    console.error('Failed to get a response. Error message:', error.message, '(',  error.response.data, ').');
   });
  
 // TASK#3 =============================
-// Get book details based on author
+// Endpoint Get Request API Handler: Get book details based on author
 publicRouter.get('/author/:author',function (req, res) {
   //Write your code here
   const author = req.params.author;
@@ -128,6 +130,19 @@ publicRouter.get('/author/:author',function (req, res) {
 
 });
 
+// TASK#12 ============================
+// Get/request book details based on author using axios
+//const author = "Chinua Achebe";
+//const author = "Unknown";
+const author = "oo"
+console.log(`now requesting book details by author: ${author} \n`);
+axios.get(`${host}/author/${author}`)
+ .then(response => {
+    console.log(`just received a response regarding the book(s) of author: ${author} \n`, response.data);
+  })
+ .catch(error => {
+    console.error(`Failed to get a response regarding the book(s) of author: ${author}. Error message:`, error.message, '(',  error.response.data, ').');
+  });
 
 //TASK#4:
 // Get all books based on title
