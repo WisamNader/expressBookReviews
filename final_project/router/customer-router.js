@@ -92,6 +92,7 @@ customerRouter.post("/login", (req,res) => {
     }
 });
 
+// TASK#8 ==================================================
 // Add a book review
 customerRouter.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
@@ -100,7 +101,7 @@ customerRouter.put("/auth/review/:isbn", (req, res) => {
   let review = req.query.review;
 
   if(username && isbn && review){
-        console.log(`authorized user: `, username, `with access token: `, req.session.authorization.accessToken);
+        console.log(`review put request for authorized user: `, username, `with access token: `, req.session.authorization.accessToken);
         if(books[isbn]){
             books[isbn].reviews[username] = review;
             console.log(`updated book of isbn: ${isbn} \n`, books[isbn]);
@@ -115,6 +116,37 @@ customerRouter.put("/auth/review/:isbn", (req, res) => {
     }
 
   //return res.status(300).json({message: "/auth/review/:isbn: Yet to be implemented"});
+});
+
+// TASK#9 ===================================
+// delete a book review
+customerRouter.delete("/auth/review/:isbn", (req, res) => {
+    let isbn = req.params.isbn;
+    let username = req.session.authorization.username;
+  
+    if(username && isbn){
+          console.log(`review delete request for authorized user: `, username, `with access token: `, req.session.authorization.accessToken);
+          if(books[isbn]){
+              //books[isbn].reviews[username] = "";
+              if(books[isbn].reviews[username]){
+                delete books[isbn].reviews[username];
+                console.log(`deleted a review by username: ${username} for book of isbn: ${isbn} \n`, books[isbn]);
+                return res.status(200).send(books[isbn]);
+              }
+              else{
+                return res.status(404).send(`could not find review for username: ${username} for book of isbn: ${isbn}`);
+              }
+          }
+          else{
+              return res.status(404).send(`could not find a book with isbn: ${isbn}`);
+          }
+      }
+    else{
+          return res.status(400).send(`missing username, isbn, and/or query`);
+      }
+  
+    //return res.status(300).json({message: "/auth/review/:isbn: Yet to be implemented"});   
+
 });
 
 module.exports.customerRouter = customerRouter;
