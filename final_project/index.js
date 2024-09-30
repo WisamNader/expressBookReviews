@@ -5,7 +5,7 @@
     const session = require('express-session');
     const axios = require("axios");
     const customerRouter = require('./router/customer-router.js').customerRouter; //router for registerd customers only
-    const publicRouter = require('./router/public-router.js').publicRouter; //router for any customer
+    const publicRouter = require('./router/general.js').publicRouter; //router for any customer
     const authorizationMiddleWare = require('./router/customer-router.js').authorizationMiddleWare;
     const boooks = require('./router/booksdb.js');
 

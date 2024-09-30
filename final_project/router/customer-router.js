@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 let books = require("./booksdb.js");
 const customerRouter = express.Router();
-const registeredUsers =   require('./public-router.js').registeredUsers;
-const registeredCustomers = require('./public-router.js').registeredCustomers;
+const registeredUsers =   require('./general.js').registeredUsers;
+const registeredCustomers = require('./general.js').registeredCustomers;
 
 let customers = [];
 
