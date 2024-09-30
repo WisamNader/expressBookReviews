@@ -73,7 +73,7 @@ publicRouter.get('/isbn/:isbn',function (req, res) {
   if(books[isbn]){
     return res.status(200).json(books[isbn]);
   }
-  return res.status(404).json({message:"book isbn does not exist"});
+  return res.status(404).json({message: `no book found for isbn: ${isbn}`});
   //return res.status(300).json({message: " Get book details based on ISBN: Yet to be implemented"});
  }); 
 
@@ -86,7 +86,7 @@ axios.get(`http://localhost:5000/isbn/${isbn}`)
     console.log(`just received a response regarding the book of isbn: ${isbn} \n`, response.data);
   })
  .catch(error => {
-    console.error('Failed to get a response. Error message:', error.message, '(',  error.response.data, ').');
+    console.error(`Failed to get a response regarding the book of isbn: ${isbn}. Error message:`, error.message, '(',  error.response.data, ').');
   });
  
 // TASK#3 =============================
@@ -144,7 +144,7 @@ axios.get(`${host}/author/${author}`)
     console.error(`Failed to get a response regarding the book(s) of author: ${author}. Error message:`, error.message, '(',  error.response.data, ').');
   });
 
-//TASK#4:
+// TASK#4:
 // Get all books based on title
 publicRouter.get('/title/:title',function (req, res) {
   //Write your code here
@@ -166,6 +166,21 @@ publicRouter.get('/title/:title',function (req, res) {
   //return res.status(300).json({message: "Get all books based on title: Yet to be implemented"});
 });
 
+// TASK#13 ============================
+//Get/request book details based on title using axios
+//const title = "Things Fall Apart";
+//const title = "Molloy, Malone Dies, The Unnamable, the trilogy";
+//const title = "Le P\u00e8re Goriot";
+const title = "ttt"
+
+console.log(`now requesting book details by title: ${title} \n`);
+axios.get(`${host}/title/${title}`)
+ .then(response => {
+    console.log(`just received a response regarding the book of title: ${title} \n`, response.data);
+  })
+ .catch(error => {
+    console.error(`Failed to get a response regarding the book of title: ${title}. Error message:`, error.message, '(',  error.response.data, ').');
+  });
 
 //TASK#5: 
 //  Get book review
