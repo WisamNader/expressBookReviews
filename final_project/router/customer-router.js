@@ -66,19 +66,28 @@ customerRouter.post("/login", (req,res) => {
                     console.log(`password: ${password} matches records in registeredCustomers too`);
                     console.log('now it is time to assign a JWT access key');
                     //now, sign the user in and assign a JWT access key
-                    return res.send('username and password match .. but still need to assign JWT access key');
-
+                    //return res.send('username and password match .. but still need to assign JWT access key');
+                    
+                    // Generate JWT access token
+                    let accessToken = jwt.sign({
+                        data: password
+                    }, 'access', { expiresIn: 20 * 1 });
+                    // Store access token and username in session
+                    req.session.authorization = {
+                        accessToken, username
+                    }
+                    return res.status(200).send("User successfully logged in");
                     // End of JWT signing
                 }
             }
             else{
                 console.log(`password: ${password} does not match our records (${registeredUsers[username]}) .. please try again`); 
-                return res.status(400).send(`password: ${password} does not match our records .. please try again`);
+                return res.status(208).send(`password: ${password} does not match our records .. please try again`);
             }
         }
     }
     else{
-        console.log(`username: (${username}) is not registered yet`)
+        console.log(`username: (${username}) is not registered yet`);
         return res.status(400).send(`username: (${username}) is not registered yet`);
     }
 });
