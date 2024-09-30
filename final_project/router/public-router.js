@@ -3,9 +3,8 @@ console.log("now running the public-router file");
 const express = require('express');
 const axios = require('axios');
 let books = require("./booksdb.js");
-//let registeredUsers = require("../index.js").registeredUsers;
 let isValid = require("./customer-router.js").isValid;
-//let customers = require("./customer-router.js").customers;
+let customers = require("./customer-router.js").customers;
 
 const host = "http://localhost:5000";
 
@@ -35,7 +34,7 @@ publicRouter.post("/register", (req,res) => {
     return res.status(409).send(`409 Error Code (Conflict); resource (i.e. username: ${username}) already exists`);
   }
   else{
-    console.log(`Yeah new user (${username}) just registered!!`)
+    console.log(`Yeah new user (${username}) just registered!!`);
     registeredUsers[username] = password;
     registeredCustomers.push({"username": username, "password": password});
     console.log("registeredUsers are:\n", registeredUsers);
@@ -203,3 +202,4 @@ publicRouter.get('/review/:isbn',function (req, res) {
 
 module.exports.publicRouter = publicRouter;
 module.exports.registeredUsers = registeredUsers;
+module.exports.registeredCustomers = registeredCustomers;

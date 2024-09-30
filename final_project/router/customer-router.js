@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 let books = require("./booksdb.js");
 const customerRouter = express.Router();
+const registeredUsers =   require('./public-router.js').registeredUsers;
+const registeredCustomers = require('./public-router.js').registeredCustomers;
 
 let customers = [];
 
@@ -36,11 +38,49 @@ const authorizationMiddleWare = (req,res,next) => {
         
 }
 
-
+// Task#7:
 //only registered customers can login
 customerRouter.post("/login", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "/login endpoint is yet to be implemented"});
+    //Write your code here
+    const {username, password} = req.body;
+
+    // check that the username and password are provided correctly in the request body
+    if ([undefined, null, ""].includes(username) ){
+    return res.status(400).send(`missing username`);
+    }
+
+    if ([undefined, null, ""].includes(password) ){
+    return res.status(400).send(`missing password`);
+    }
+
+    if (registeredUsers[username]){
+        console.log(`username: ${username} exists in registerdUsers`);
+        console.log(`registeredCustomers:`, registeredCustomers);
+        console.log(`registeredUsers:`, registeredUsers);
+        if(registeredCustomers.find(user => user.username === username)){
+            console.log(`username: ${username} exists in registeredCustomers`);
+            //check for password match now
+            if(registeredUsers[username] === password){
+                console.log(`password: ${password} matches records in registeredUsers`);
+                if(registeredCustomers.find(user => user.username === username && user.password === password)){
+                    console.log(`password: ${password} matches records in registeredCustomers too`);
+                    console.log('now it is time to assign a JWT access key');
+                    //now, sign the user in and assign a JWT access key
+                    return res.send('username and password match .. but still need to assign JWT access key');
+
+                    // End of JWT signing
+                }
+            }
+            else{
+                console.log(`password: ${password} does not match our records (${registeredUsers[username]}) .. please try again`); 
+                return res.status(400).send(`password: ${password} does not match our records .. please try again`);
+            }
+        }
+    }
+    else{
+        console.log(`username: (${username}) is not registered yet`)
+        return res.status(400).send(`username: (${username}) is not registered yet`);
+    }
 });
 
 // Add a book review

@@ -80,5 +80,3 @@ app.listen(PORT,()=>{
 });
 
 console.log("this command is just after starting the server in the index.js file");
-
-//module.exports.registeredUsers = registeredUsers;
