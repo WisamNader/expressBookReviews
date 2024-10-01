@@ -6,7 +6,7 @@ let books = require("./booksdb.js");
 let isValid = require("./customer-router.js").isValid;
 let customers = require("./customer-router.js").customers;
 
-const host = "http://localhost:5000";
+let host = "http://localhost:5000";
 
 const publicRouter = express.Router();
 
@@ -55,7 +55,9 @@ publicRouter.get('/',function (req, res) {
 
 // TASK#10 ==========================
 console.log("Now requesting a list of all available books using axios:\n please wait ...");
-axios.get('http://localhost:5000/')
+//host = 'http://localhost:5000';
+host = "https://engwisamnade-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai";
+axios.get(`${host}/`)
   .then(responseData =>{
       console.log("Here is the full book list:\n", responseData.data, " === End of the full book list/data === \n");
   })
@@ -70,7 +72,9 @@ publicRouter.get('/isbn/:isbn',function (req, res) {
   //Write your code here
   let isbn = req.params.isbn;
   if(books[isbn]){
-    return res.status(200).json(books[isbn]);
+    let book = {};
+    book[isbn] = books[isbn];
+    return res.status(200).json(book);
   }
   return res.status(404).json({message: `no book found for isbn: ${isbn}`});
   //return res.status(300).json({message: " Get book details based on ISBN: Yet to be implemented"});
@@ -78,14 +82,16 @@ publicRouter.get('/isbn/:isbn',function (req, res) {
 
 // TASK#11 ============================
 // Get/request book details based on ISBN using axios
-const isbn = 11;
+const isbn = 1;
+//host = 'http://localhost:5000';
+host = "https://engwisamnade-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai";
 console.log(`now requesting book details by isbn: ${isbn} \n`);
-axios.get(`http://localhost:5000/isbn/${isbn}`)
+axios.get(`${host}/isbn/${isbn}`)
  .then(response => {
-    console.log(`just received a response regarding the book of isbn: ${isbn} \n`, response.data);
+    console.log(`just received a response for the book of isbn: ${isbn} \n`, response.data);
   })
  .catch(error => {
-    console.error(`Failed to get a response regarding the book of isbn: ${isbn}. Error message:`, error.message, '(',  error.response.data, ').');
+    console.error(`response error for the book of isbn: ${isbn}. Error message:`, error.message, '(',  error.response.data, ').');
   });
  
 // TASK#3 =============================
@@ -131,16 +137,18 @@ publicRouter.get('/author/:author',function (req, res) {
 
 // TASK#12 ============================
 // Get/request book details based on author using axios
-//const author = "Chinua Achebe";
+const author = "Chinua Achebe";
 //const author = "Unknown";
-const author = "oo"
+//const author = "oo"
+//host = 'http://localhost:5000';
+host = "https://engwisamnade-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai";
 console.log(`now requesting book details by author: ${author} \n`);
 axios.get(`${host}/author/${author}`)
  .then(response => {
-    console.log(`just received a response regarding the book(s) of author: ${author} \n`, response.data);
+    console.log(`just received a response for the book(s) of author: ${author} \n`, response.data);
   })
  .catch(error => {
-    console.error(`Failed to get a response regarding the book(s) of author: ${author}. Error message:`, error.message, '(',  error.response.data, ').');
+    console.error(`response error for the book(s) of author: ${author}. Error message:`, error.message, '(',  error.response.data, ').');
   });
 
 // TASK#4:
@@ -168,17 +176,18 @@ publicRouter.get('/title/:title',function (req, res) {
 // TASK#13 ============================
 //Get/request book details based on title using axios
 //const title = "Things Fall Apart";
-//const title = "Molloy, Malone Dies, The Unnamable, the trilogy";
+const title = "Molloy, Malone Dies, The Unnamable, the trilogy";
 //const title = "Le P\u00e8re Goriot";
-const title = "ttt"
-
+//const title = "ttt"
+//host = 'http://localhost:5000';
+host = "https://engwisamnade-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai";
 console.log(`now requesting book details by title: ${title} \n`);
 axios.get(`${host}/title/${title}`)
  .then(response => {
-    console.log(`just received a response regarding the book of title: ${title} \n`, response.data);
+    console.log(`just received a response for the book of title: ${title} \n`, response.data);
   })
  .catch(error => {
-    console.error(`Failed to get a response regarding the book of title: ${title}. Error message:`, error.message, '(',  error.response.data, ').');
+    console.error(`response error for the book of title: ${title}. Error message:`, error.message, '(',  error.response.data, ').');
   });
 
 //TASK#5: 
